@@ -1,0 +1,22 @@
+{
+  "name": "hello-electron",
+  "version": "1.0.0",
+  "description": "Minimal LaunchDarkly Electron SDK demo",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/electron/hello-electron",
+  "keywords": [
+    "LaunchDarkly",
+    "Electron",
+    "demo"
+  ],
+  "author": "LaunchDarkly",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "electron": "~1.8.2",
+    "jquery": "3.3.1",
+    "ldclient-electron": "^2.9.0-alpha.1"
+  }
+}
