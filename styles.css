@@ -1,0 +1,25 @@
+
+body {
+	padding: 10px;
+}
+
+#ld-flags {
+    margin-top: 20px;
+}
+
+#ld-flags table {
+    margin: 0 auto;
+}
+
+#ld-flags table, #ld-flags th, #ld-flags td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+#ld-flags th, #ld-flags td {
+    padding: 8px;
+}
+
+#ld-flags th {
+	background: #ddd;
+}
