@@ -17,6 +17,6 @@
   "dependencies": {
     "electron": "~1.8.2",
     "jquery": "3.3.1",
-    "ldclient-electron": "^2.9.0-alpha.2"
+    "ldclient-electron": "^2.9.0-beta.1"
   }
 }
