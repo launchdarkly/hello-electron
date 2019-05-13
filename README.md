@@ -13,4 +13,3 @@ We've built a simple Electron application that demonstrates how LaunchDarkly's S
 ### More information
 
 - [Electron SDK Reference](https://docs.launchdarkly.com/v2.0/docs/electron-sdk-reference)
-- Github project for the [LaunchDarkly SDKs for Client-Side JavaScript](https://github.com/launchdarkly/js-client/tree/electron), which the Electron SDK is part of

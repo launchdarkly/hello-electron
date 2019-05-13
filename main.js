@@ -9,7 +9,7 @@
 //
 
 const electron = require('electron');
-const ldclient = require('ldclient-electron');
+const ldclient = require('launchdarkly-electron-client-sdk');
 const path = require('path');
 const url = require('url');
 
