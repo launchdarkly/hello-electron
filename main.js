@@ -56,5 +56,12 @@ app.on('ready', () => {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
+  // Here we ensure that the SDK shuts down cleanly and has a chance to
+  // deliver analytics events to LaunchDarkly before the program exits.
+  // If analytics events are not delivered, the user properties and flag
+  // usage statistics will not appear on your dashboard. In a normal
+  // long-running application, the SDK would continue running and events
+  // would be delivered automatically in the background.
+  launchDarklyMainProcessClient.close();
   app.quit();
 });
