@@ -5,7 +5,7 @@
 // and displays them in a window. It uses streaming mode so that if any flag is changed on
 // the LaunchDarkly dashboard, the on-screen value will be updated.
 //
-// The application structure based on the Electron Quick Start Guide: http://electron.atom.io/docs/tutorial/quick-start
+// The application structure is based on the Electron Quick Start Guide: http://electron.atom.io/docs/tutorial/quick-start.
 //
 
 const electron = require('electron');
