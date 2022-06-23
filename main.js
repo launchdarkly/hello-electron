@@ -17,12 +17,14 @@ const app = electron.app;
 
 let launchDarklyMainProcessClient;
 
-// Put the client-side ID for your LaunchDarkly environment here. The default value below will
-// still work, but it's for a demo environment where you would not be able to modify the flags.
-const launchDarklyEnvironmentId = '5c0727b6abf23c53a840a9ed';
+// Set launchDarklyEnvironmentId to your LaunchDarkly client-side ID.
+const launchDarklyEnvironmentId = '';
 
+// Set up the user properties. This user should appear on your LaunchDarkly
+// users dashboard soon after you run the demo.
 const launchDarklyUser = {
-  key: 'test-user-key'
+  key: 'example-user-key',
+  name: 'Sandy'
 };
 
 const launchDarklyOptions = {
