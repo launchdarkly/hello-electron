@@ -10,7 +10,7 @@ Below, you'll find the build procedure. For more comprehensive instructions, you
 2. Edit `main.js` and set the value of `launchDarklyEnvironmentId` to your LaunchDarkly client-side ID.
 
 ```
-const launchDarklyEnvironmentId = '5e44ab7d09107307fa78bd09';
+const launchDarklyEnvironmentId = 'myClientSideID';
 ```
 
 3. Install dependencies: `npm install`.
