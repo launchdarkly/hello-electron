@@ -6,7 +6,7 @@ const ldclient = require('ldclient-electron');
 
 const launchDarklyBrowserClient = ldclient.initializeInRenderer();
 
-// Wait for the client to be initialized. 
+// Wait for the client to be initialized.
 launchDarklyBrowserClient.on('ready', () => {
   $('#ld-status').text('Loaded feature flags.');
 
