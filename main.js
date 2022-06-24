@@ -5,7 +5,7 @@
 // and displays them in a window. It uses streaming mode so that if any flag is changed on
 // the LaunchDarkly dashboard, the on-screen value will be updated.
 //
-// The application structure based on the Electron Quick Start Guide: http://electron.atom.io/docs/tutorial/quick-start
+// The application structure is based on the Electron Quick Start Guide: http://electron.atom.io/docs/tutorial/quick-start.
 //
 
 const electron = require('electron');
@@ -17,12 +17,14 @@ const app = electron.app;
 
 let launchDarklyMainProcessClient;
 
-// Put the client-side ID for your LaunchDarkly environment here. The default value below will
-// still work, but it's for a demo environment where you would not be able to modify the flags.
-const launchDarklyEnvironmentId = '5c0727b6abf23c53a840a9ed';
+// Set launchDarklyEnvironmentId to your LaunchDarkly client-side ID.
+const launchDarklyEnvironmentId = '';
 
+// Set up the user properties. This user should appear on your LaunchDarkly
+// users dashboard soon after you run the demo.
 const launchDarklyUser = {
-  key: 'test-user-key'
+  key: 'example-user-key',
+  name: 'Sandy'
 };
 
 const launchDarklyOptions = {
@@ -54,5 +56,12 @@ app.on('ready', () => {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
+  // Here we ensure that the SDK shuts down cleanly and has a chance to
+  // deliver analytics events to LaunchDarkly before the program exits.
+  // If analytics events are not delivered, the user properties and flag
+  // usage statistics will not appear on your dashboard. In a normal
+  // long-running application, the SDK would continue running and events
+  // would be delivered automatically in the background.
+  launchDarklyMainProcessClient.close();
   app.quit();
 });
