@@ -2,7 +2,7 @@
 // renderer process for the window.
 
 const $ = require('jquery');
-const ldclient = require('ldclient-electron');
+const ldclient = require('launchdarkly-electron-client-sdk');
 
 const launchDarklyBrowserClient = ldclient.initializeInRenderer();
 

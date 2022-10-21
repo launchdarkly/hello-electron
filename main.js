@@ -20,6 +20,7 @@ let launchDarklyMainProcessClient;
 // Set launchDarklyEnvironmentId to your LaunchDarkly client-side ID.
 const launchDarklyEnvironmentId = '';
 
+
 // Set up the user properties. This user should appear on your LaunchDarkly
 // users dashboard soon after you run the demo.
 const launchDarklyUser = {
@@ -28,11 +29,17 @@ const launchDarklyUser = {
 };
 
 const launchDarklyOptions = {
-  streaming: true // Necessary in order for live flag updating to work
+  streaming: true, // Necessary in order for live flag updating to work
 };
 
-function createWindow () {
-  const mainWindow = new electron.BrowserWindow({ width: 800, height: 600 })
+function createWindow() {
+  const mainWindow = new electron.BrowserWindow({
+    width: 800, height: 600, webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
+    }
+  })
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
