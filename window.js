@@ -2,27 +2,39 @@
 // renderer process for the window.
 
 const $ = require('jquery');
-const ldclient = require('launchdarkly-electron-client-sdk');
+const { createClient } = require('@launchdarkly/js-client-sdk');
 
-const launchDarklyBrowserClient = ldclient.initializeInRenderer();
+// Set launchDarklyClientSideId to your LaunchDarkly client-side ID.
+const launchDarklyClientSideId = '';
 
-// Wait for the client to be initialized.
-launchDarklyBrowserClient.on('ready', () => {
+// Set up the context properties. This context should appear on your LaunchDarkly
+// contexts dashboard soon after you run the demo.
+const context = {
+  kind: 'user',
+  key: 'example-user-key',
+  name: 'Sandy'
+};
+
+const client = createClient(launchDarklyClientSideId, context, {
+  streaming: true,
+});
+
+client.start().then(() => {
   $('#ld-status').text('Loaded feature flags.');
 
-  // Now we have flag values.
   updateFlagValues();
 
   // Listening for the "change" event allows us to receive flag changes at any time.
-  launchDarklyBrowserClient.on('change', () => {
+  client.on('change', () => {
     updateFlagValues();
     $('#ld-status').text('Updated feature flags.');
   });
+}).catch((err) => {
+  $('#ld-status').text('Error initializing LaunchDarkly: ' + err.message);
 });
 
 function updateFlagValues() {
-  const flagsAndValues = launchDarklyBrowserClient.allFlags();
-  // You could also check the value of an individual flag here by calling variation().
+  const flagsAndValues = client.allFlags();
 
   // Build an HTML table of all the current flag values.
   const table = $('<table></table>');
