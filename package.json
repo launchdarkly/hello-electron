@@ -15,8 +15,8 @@
   "author": "LaunchDarkly",
   "license": "Apache-2.0",
   "dependencies": {
-    "electron": "12.2.3",
-    "jquery": "3.5.0",
-    "launchdarkly-electron-client-sdk": "1.7.0"
+    "@launchdarkly/js-client-sdk": "^4.9.0",
+    "electron": "^42.3.3",
+    "jquery": "^3.7.1"
   }
 }
