@@ -16,7 +16,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@launchdarkly/js-client-sdk": "^4.9.0",
-    "electron": "^42.3.3",
+    "electron": "^42.9.2",
     "jquery": "^3.7.1"
   }
 }

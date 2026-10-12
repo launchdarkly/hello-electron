@@ -19,7 +19,13 @@ const client = createClient(launchDarklyClientSideId, context, {
   streaming: true,
 });
 
-client.start().then(() => {
+client.start().then((result) => {
+  if (result.status !== 'complete') {
+    const reason = result.status === 'failed' ? result.error.message : 'timed out';
+    $('#ld-status').text('Error initializing LaunchDarkly: ' + reason);
+    return;
+  }
+
   $('#ld-status').text('Loaded feature flags.');
 
   updateFlagValues();
@@ -29,8 +35,13 @@ client.start().then(() => {
     updateFlagValues();
     $('#ld-status').text('Updated feature flags.');
   });
-}).catch((err) => {
-  $('#ld-status').text('Error initializing LaunchDarkly: ' + err.message);
+});
+
+// Close the client when the window is closing so it has a chance to deliver
+// analytics events to LaunchDarkly. If analytics events are not delivered, the
+// context properties and flag usage statistics will not appear on your dashboard.
+window.addEventListener('beforeunload', () => {
+  client.close();
 });
 
 function updateFlagValues() {
