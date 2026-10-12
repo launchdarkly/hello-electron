@@ -19,22 +19,22 @@ const client = createClient(launchDarklyClientSideId, context, {
   streaming: true,
 });
 
-client.start().then((result) => {
-  if (result.status !== 'complete') {
-    const reason = result.status === 'failed' ? result.error.message : 'timed out';
-    $('#ld-status').text('Error initializing LaunchDarkly: ' + reason);
-    return;
-  }
-
-  $('#ld-status').text('Loaded feature flags.');
-
+// Listening for the "change" event allows us to receive flag changes at any time,
+// including once a slow initialization eventually completes.
+client.on('change', () => {
   updateFlagValues();
+  $('#ld-status').text('Updated feature flags.');
+});
 
-  // Listening for the "change" event allows us to receive flag changes at any time.
-  client.on('change', () => {
+client.start().then((result) => {
+  if (result.status === 'complete') {
+    $('#ld-status').text('Loaded feature flags.');
     updateFlagValues();
-    $('#ld-status').text('Updated feature flags.');
-  });
+  } else if (result.status === 'failed') {
+    $('#ld-status').text('Error initializing LaunchDarkly: ' + result.error.message);
+  } else {
+    $('#ld-status').text('Still waiting for LaunchDarkly to initialize...');
+  }
 });
 
 // Close the client when the window is closing so it has a chance to deliver
