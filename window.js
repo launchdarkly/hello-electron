@@ -2,27 +2,50 @@
 // renderer process for the window.
 
 const $ = require('jquery');
-const ldclient = require('launchdarkly-electron-client-sdk');
+const { createClient } = require('@launchdarkly/js-client-sdk');
 
-const launchDarklyBrowserClient = ldclient.initializeInRenderer();
+// Set launchDarklyClientSideId to your LaunchDarkly client-side ID.
+const launchDarklyClientSideId = '';
 
-// Wait for the client to be initialized.
-launchDarklyBrowserClient.on('ready', () => {
-  $('#ld-status').text('Loaded feature flags.');
+// Set up the context properties. This context should appear on your LaunchDarkly
+// contexts dashboard soon after you run the demo.
+const context = {
+  kind: 'user',
+  key: 'example-user-key',
+  name: 'Sandy'
+};
 
-  // Now we have flag values.
+const client = createClient(launchDarklyClientSideId, context, {
+  streaming: true,
+});
+
+// Listening for the "change" event allows us to receive flag changes at any time,
+// including once a slow initialization eventually completes.
+client.on('change', () => {
   updateFlagValues();
+  $('#ld-status').text('Updated feature flags.');
+});
 
-  // Listening for the "change" event allows us to receive flag changes at any time.
-  launchDarklyBrowserClient.on('change', () => {
+client.start().then((result) => {
+  if (result.status === 'complete') {
+    $('#ld-status').text('Loaded feature flags.');
     updateFlagValues();
-    $('#ld-status').text('Updated feature flags.');
-  });
+  } else if (result.status === 'failed') {
+    $('#ld-status').text('Error initializing LaunchDarkly: ' + result.error.message);
+  } else {
+    $('#ld-status').text('Still waiting for LaunchDarkly to initialize...');
+  }
+});
+
+// Close the client when the window is closing so it has a chance to deliver
+// analytics events to LaunchDarkly. If analytics events are not delivered, the
+// context properties and flag usage statistics will not appear on your dashboard.
+window.addEventListener('beforeunload', () => {
+  client.close();
 });
 
 function updateFlagValues() {
-  const flagsAndValues = launchDarklyBrowserClient.allFlags();
-  // You could also check the value of an individual flag here by calling variation().
+  const flagsAndValues = client.allFlags();
 
   // Build an HTML table of all the current flag values.
   const table = $('<table></table>');
