@@ -1,16 +1,16 @@
-## LaunchDarkly sample Electron application 
+## LaunchDarkly sample Electron application 
 
 We've built a simple Electron application that demonstrates how LaunchDarkly's SDK works.
 
-Below, you'll find the build procedure. For more comprehensive instructions, you can visit your [Quickstart page](https://app.launchdarkly.com/quickstart#/) or the [Electron SDK reference guide](https://docs.launchdarkly.com/sdk/client-side/electron).
+Below, you'll find the build procedure. For more comprehensive instructions, you can visit your [Quickstart page](https://app.launchdarkly.com/quickstart#/) or the [JavaScript SDK reference guide](https://docs.launchdarkly.com/sdk/client-side/javascript).
 
-### Build instructions 
+### Build instructions 
 
 1. In LaunchDarkly, make sure you have at least one feature flag. For each flag, check the "Make this flag available to client-side SDKs" box in the flag's **Settings** tab.
-2. Edit `main.js` and set the value of `launchDarklyEnvironmentId` to your LaunchDarkly client-side ID.
+2. Edit `window.js` and set the value of `launchDarklyClientSideId` to your LaunchDarkly client-side ID.
 
 ```
-const launchDarklyEnvironmentId = 'myClientSideID';
+const launchDarklyClientSideId = 'myClientSideID';
 ```
 
 3. Install dependencies: `npm install`.
